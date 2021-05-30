@@ -34,7 +34,6 @@ picturesContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 
 function openModal(e) {
   currentIndex = Number(e.target.getAttribute('data-index'));
-  console.log(currentIndex);
 
   if (e.target.getAttribute('class') !== 'gallery__image') {
     return;
@@ -74,13 +73,18 @@ window.addEventListener('keydown', e => {
     currentIndex -= 1;
   }
 
+  if (currentIndex < 0) {
+    currentIndex = pictures.length - 1;
+  } else if (currentIndex >= pictures.length) {
+    currentIndex = 0;
+  }
+  
   setPicture(currentIndex);
 });
 
 function setPicture(indexOfPicture) {
   pictures.find((picture, index) => {
     if (indexOfPicture === index) {
-      console.log(index);
       bigPicture.setAttribute('src', pictures[index].original);
       bigPicture.setAttribute('alt', pictures[index].description);
     }
